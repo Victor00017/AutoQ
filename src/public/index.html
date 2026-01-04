@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutofriQ – Verified Vehicle Transactions in Ghana</title>
+    <meta name="description" content="Independent on-site vehicle inspections and controlled transactions for used car deals in Ghana.">
+    <link rel="icon" type="image/png" href=favicon.png>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+            --color-text: #1f2937;
+            --color-muted: #6b7280;
+            --color-bg: #ffffff;
+            --color-light: #f9fafb;
+            --color-border: #e5e7eb;
+            --color-primary: #111827;
+            --color-accent: #dc2626; /* Restrained red for key CTAs only */
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        /* Navigation */
+        nav {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--color-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+        
+        .btn-nav {
+            padding: 10px 24px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 120px 0 140px;
+            background: var(--color-light);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            max-width: 800px;
+            margin: 0 auto 24px;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--color-muted);
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            padding: 16px 32px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #b91c1c;
+        }
+        
+        .btn-secondary {
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #d1d5db;
+            background: #f3f4f6;
+        }
+        
+        /* Shared Section Styles */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 64px;
+        }
+        
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--color-muted);
+        }
+        
+        /* Problem */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        
+        .problem-card {
+            padding: 32px;
+            background: var(--color-light);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+        }
+        
+        .problem-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        /* Steps */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+        
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .step h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        /* Trust */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        
+        .trust-item {
+            padding: 32px;
+            background: var(--color-light);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+        }
+        
+        .trust-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        /* Audience */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+        
+        .audience-card {
+            padding: 40px 32px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+        }
+        
+        .audience-label {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-muted);
+            margin-bottom: 12px;
+        }
+        
+        .audience-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .audience-card ul {
+            list-style: none;
+        }
+        
+        .audience-card li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            color: var(--color-muted);
+        }
+        
+        .audience-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+        
+        /* Comparison */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 20px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        th {
+            background: var(--color-light);
+            font-weight: 600;
+        }
+        
+        .check { color: #16a34a; font-weight: 700; }
+        .cross { color: #dc2626; font-weight: 700; }
+        
+        /* Geo */
+        .geo-content {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        
+        .location-tag {
+            display: inline-block;
+            padding: 12px 28px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 32px;
+        }
+        
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--color-primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section .section-subtitle {
+            color: #d1d5db;
+            margin-bottom: 48px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-cta-primary {
+            padding: 16px 32px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .btn-cta-secondary {
+            padding: 16px 32px;
+            background: transparent;
+            color: white;
+            border: 2px solid #4b5563;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            background: var(--color-light);
+            border-top: 1px solid var(--color-border);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            color: var(--color-primary);
+        }
+        
+        .footer-links a {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--color-muted);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+        
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--color-muted);
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 40px; }
+            .hero { padding: 100px 0; }
+            section { padding: 80px 0; }
+            h2 { font-size: 32px; }
+            .hero-buttons, .cta-buttons { flex-direction: column; align-items: center; }
+            .btn-primary, .btn-secondary, .btn-cta-primary, .btn-cta-secondary { width: 100%; max-width: 320px; text-align: center; }
+            .nav-links { gap: 20px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+        
+        @media (max-width: 640px) {
+            .container { padding: 0 24px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">AutofriQ</div>
+            <div class="nav-links">
+                <a href="#how">How it works</a>
+                <a href="#dealers">For dealers</a>
+                <a href="#agents">For agents</a>
+                <a href="#cta" class="btn-nav">Get started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Verified vehicle transactions in Ghana</h1>
+            <p class="hero-subtitle">Independent on-site inspections before any listing goes live. Clear evidence for buyers. Real accountability for dealers.</p>
+            <div class="hero-buttons">
+                <a href="#how" class="btn-primary">See how it works</a>
+                <a href="#dealers" class="btn-secondary">For dealers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The reality of used car trading in Ghana</h2>
+                <p class="section-subtitle">Most deals lack independent verification and leave buyers exposed.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>Hidden defects</h3>
+                    <p>Mechanical or accident issues only surface after payment is made.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>No evidence</h3>
+                    <p>Listings rely on seller-provided photos with no on-site proof.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Off-platform deals</h3>
+                    <p>Buyers and sellers move to WhatsApp, losing any protection.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Limited accountability</h3>
+                    <p>Disputes are common and hard to resolve fairly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section" id="how" style="background: var(--color-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>How AutofriQ works</h2>
+                <p class="section-subtitle">Simple, enforced process for every vehicle.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Dealer submits vehicle</h3>
+                    <p>Basic details entered. Listing stays pending.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Agent performs inspection</h3>
+                    <p>On-site check with GPS-stamped photos and standardised checklist.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Report published</h3>
+                    <p>Full findings made public on the listing for all buyers to see.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Buyer connects</h3>
+                    <p>Contact only possible after verification is complete.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trust mechanisms</h2>
+                <p class="section-subtitle">Systems in place to maintain standards and prevent fraud.</p>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <h3>On-site evidence only</h3>
+                    <p>All photos captured during inspection with location verification.</p>
+                </div>
+                <div class="trust-item">
+                    <h3>Agent quality control</h3>
+                    <p>Performance monitoring and random audits.</p>
+                </div>
+                <div class="trust-item">
+                    <h3>Dealer track record</h3>
+                    <p>Repeated issues reduce visibility or lead to removal.</p>
+                </div>
+                <div class="trust-item">
+                    <h3>Permanent records</h3>
+                    <p>Reports and photos stored and timestamped indefinitely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience -->
+    <section class="audience-section" style="background: var(--color-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Who it’s for</h2>
+            </div>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-label">Buyers</div>
+                    <h3>Buy with confidence</h3>
+                    <ul>
+                        <li>See independent reports before contacting anyone</li>
+                        <li>Know condition and history upfront</li>
+                        <li>Avoid common surprises</li>
+                    </ul>
+                </div>
+                <div class="audience-card" id="dealers">
+                    <div class="audience-label">Dealers</div>
+                    <h3>Build trust faster</h3>
+                    <ul>
+                        <li>Verified listings stand out</li>
+                        <li>Attract serious buyers</li>
+                        <li>Reduce disputes through transparency</li>
+                    </ul>
+                </div>
+                <div class="audience-card" id="agents">
+                    <div class="audience-label">Inspection Agents</div>
+                    <h3>Earn steadily</h3>
+                    <ul>
+                        <li>Assignments in your area</li>
+                        <li>Clear guidelines and tools</li>
+                        <li>Prompt payment per report</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How AutofriQ compares</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>AutofriQ</th>
+                        <th>Classified sites</th>
+                        <th>WhatsApp deals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mandatory pre-listing inspection</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>On-site verified evidence</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>Dealer accountability system</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>Controlled contact</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Geographic -->
+    <section class="geo-section" style="background: var(--color-light);">
+        <div class="container geo-content">
+            <h2>Focused on Ghana</h2>
+            <p class="section-subtitle">Starting in major cities with local agents and real understanding of the market.</p>
+            <div class="location-tag">Live in Accra, Kumasi, Takoradi – expanding steadily</div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>Get started today</h2>
+            <p class="section-subtitle">Choose your role and join the platform.</p>
+            <div class="cta-buttons">
+                <a href="/signup/buyer" class="btn-cta-primary">Join as buyer</a>
+                <a href="/signup/dealer" class="btn-cta-secondary">Register as dealer</a>
+                <a href="/agents" class="btn-cta-secondary">Become an agent</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="#how">How it works</a></li>
+                        <li><a href="#">Trust & safety</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Dealers</h4>
+                    <ul class="footer-links">
+                        <li><a href="#dealers">Register</a></li>
+                        <li><a href="#">Guidelines</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Agents</h4>
+                    <ul class="footer-links">
+                        <li><a href="#agents">Apply</a></li>
+                        <li><a href="#">Requirements</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 AutofriQ. All rights reserved.</div>
+                <div>Built for emerging markets</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
