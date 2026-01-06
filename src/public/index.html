@@ -3,62 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutofriQ – Verified Vehicle Transactions in Ghana</title>
-    <meta name="description" content="Independent on-site vehicle inspections and controlled transactions for used car deals in Ghana.">
-    <link rel="icon" type="image/png" href=favicon.png>
+    <title>AutofriQ – Controlled Vehicle Transactions in Ghana</title>
+    <meta name="description" content="Every car is physically verified on-site before listing. No shortcuts, no bypasses, no off-platform deals.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-            --color-text: #1f2937;
-            --color-muted: #6b7280;
+            --color-text: #0a0a0a;
+            --color-muted: #525252;
             --color-bg: #ffffff;
-            --color-light: #f9fafb;
-            --color-border: #e5e7eb;
-            --color-primary: #111827;
-            --color-accent: #dc2626; /* Restrained red for key CTAs only */
+            --color-light: #fafafa;
+            --color-border: #e5e5e5;
+            --color-primary: #0a0a0a;
+            --color-accent: #dc2626;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
         
         body {
             font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.7;
             color: var(--color-text);
             background: var(--color-bg);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
-        .email-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #28a745;   /* Green button */
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  font-family: Arial, sans-serif;
-}
-
-.email-button:hover {
-  background: #218838;   /* Darker green on hover */
-}
+        
         .container {
-            max-width: 1140px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 40px;
         }
         
         /* Navigation */
         nav {
-            padding: 24px 0;
+            padding: 28px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--color-border);
-            background: var(--color-bg);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            transition: all 0.3s var(--ease-out);
+        }
+        
+        nav.scrolled {
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
         }
         
         .nav-content {
@@ -69,14 +73,20 @@
         
         .logo {
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--color-primary);
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        
+        .logo:hover {
+            opacity: 0.7;
         }
         
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 40px;
             align-items: center;
         }
         
@@ -85,277 +95,508 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 15px;
+            transition: color 0.2s;
+            position: relative;
         }
         
-        .nav-links a:hover {
+        .nav-links a:not(.btn-nav):hover {
             color: var(--color-primary);
         }
         
+        .nav-links a:not(.btn-nav)::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s var(--ease-out);
+        }
+        
+        .nav-links a:not(.btn-nav):hover::after {
+            width: 100%;
+        }
+        
         .btn-nav {
-            padding: 10px 24px;
+            padding: 12px 24px;
             background: var(--color-primary);
             color: white;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
+            text-decoration: none;
+            transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+        }
+        
+        .btn-nav:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         /* Hero */
         .hero {
-            padding: 120px 0 140px;
-            background: var(--color-light);
-            text-align: center;
+            padding: 140px 0 160px;
+            background: linear-gradient(to bottom, var(--color-light) 0%, var(--color-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140%;
+            height: 100%;
+            background: radial-gradient(ellipse at center top, rgba(220, 38, 38, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
         
         .hero h1 {
-            font-size: 52px;
-            font-weight: 700;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            max-width: 800px;
-            margin: 0 auto 24px;
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto 32px;
+            animation: fadeInUp 0.8s var(--ease-out);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero-subtitle {
-            font-size: 20px;
+            font-size: 21px;
             color: var(--color-muted);
-            max-width: 640px;
-            margin: 0 auto 40px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s var(--ease-out) 0.1s backwards;
         }
         
         .hero-buttons {
             display: flex;
             gap: 16px;
             justify-content: center;
+            animation: fadeInUp 0.8s var(--ease-out) 0.2s backwards;
         }
         
         .btn-primary {
-            padding: 16px 32px;
+            padding: 18px 36px;
             background: var(--color-accent);
             color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
+            font-size: 16px;
             text-decoration: none;
-            transition: background 0.2s;
+            transition: all 0.3s var(--ease-out);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(220, 38, 38, 0.1);
         }
         
         .btn-primary:hover {
             background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(220, 38, 38, 0.25);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
         }
         
         .btn-secondary {
-            padding: 16px 32px;
-            background: transparent;
+            padding: 18px 36px;
+            background: white;
             color: var(--color-primary);
             border: 2px solid var(--color-border);
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
+            font-size: 16px;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s var(--ease-out);
+            cursor: pointer;
         }
         
         .btn-secondary:hover {
-            border-color: #d1d5db;
-            background: #f3f4f6;
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
         
-        /* Shared Section Styles */
+        .micro-trust {
+            text-align: center;
+            font-size: 15px;
+            color: var(--color-muted);
+            font-weight: 500;
+            margin-top: 32px;
+            animation: fadeInUp 0.8s var(--ease-out) 0.3s backwards;
+        }
+        
+        /* Sections */
         section {
-            padding: 100px 0;
+            padding: 120px 0;
         }
         
         .section-header {
             text-align: center;
-            max-width: 720px;
-            margin: 0 auto 64px;
+            max-width: 800px;
+            margin: 0 auto 80px;
         }
         
         h2 {
-            font-size: 36px;
-            font-weight: 700;
+            font-size: 48px;
+            font-weight: 800;
             color: var(--color-primary);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
         }
         
         .section-subtitle {
-            font-size: 18px;
+            font-size: 19px;
             color: var(--color-muted);
+            line-height: 1.6;
         }
         
         /* Problem */
+        .problem-section {
+            background: white;
+        }
+        
         .problem-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
         .problem-card {
-            padding: 32px;
+            padding: 40px;
             background: var(--color-light);
             border: 1px solid var(--color-border);
-            border-radius: 8px;
+            border-radius: 12px;
+            transition: all 0.3s var(--ease-out);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s var(--ease-out);
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: transparent;
+        }
+        
+        .problem-card:hover::before {
+            opacity: 1;
         }
         
         .problem-card h3 {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        
+        .problem-card p {
+            color: var(--color-muted);
+            line-height: 1.6;
         }
         
         /* Steps */
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 40px;
+        .how-section {
+            background: var(--color-light);
+            position: relative;
         }
         
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .step {
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease-out) forwards;
+        }
+        
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+        .step:nth-child(5) { animation-delay: 0.5s; }
+        
         .step-number {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             background: var(--color-primary);
             color: white;
-            border-radius: 50%;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 800;
             margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s var(--ease-out);
+        }
+        
+        .step:hover .step-number {
+            transform: scale(1.1) rotate(-5deg);
         }
         
         .step h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        
+        .step p {
+            color: var(--color-muted);
+            line-height: 1.6;
+        }
+        
+        .closing-line {
+            text-align: center;
+            margin-top: 64px;
             font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-weight: 700;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--color-primary);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        /* Trust */
-        .trust-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+        /* Comparison */
+        .comparison-section {
+            background: white;
         }
         
-        .trust-item {
-            padding: 32px;
+        .table-container {
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th, td {
+            padding: 24px 32px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        thead th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        tbody tr {
+            transition: background 0.2s;
+        }
+        
+        tbody tr:hover {
             background: var(--color-light);
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
         }
         
-        .trust-item h3 {
-            font-size: 18px;
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        td:first-child {
             font-weight: 600;
-            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+        
+        .yes { 
+            color: #16a34a; 
+            font-weight: 700;
+            font-size: 15px;
+        }
+        
+        .no { 
+            color: #dc2626; 
+            font-weight: 700;
+            font-size: 15px;
         }
         
         /* Audience */
+        .audience-section {
+            background: var(--color-light);
+        }
+        
         .audience-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
         
         .audience-card {
-            padding: 40px 32px;
+            padding: 48px 40px;
             background: white;
             border: 1px solid var(--color-border);
-            border-radius: 8px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s var(--ease-out);
+            position: relative;
+            overflow: hidden;
         }
         
-        .audience-label {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-muted);
-            margin-bottom: 12px;
+        .audience-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+            border-radius: 16px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s var(--ease-out);
+        }
+        
+        .audience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+            border-color: transparent;
+        }
+        
+        .audience-card:hover::before {
+            opacity: 1;
         }
         
         .audience-card h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 24px;
+            letter-spacing: -0.02em;
         }
         
         .audience-card ul {
             list-style: none;
+            text-align: left;
+            margin: 0 0 32px;
         }
         
         .audience-card li {
             position: relative;
-            padding-left: 24px;
-            margin-bottom: 12px;
+            padding-left: 32px;
+            margin-bottom: 14px;
             color: var(--color-muted);
+            font-size: 16px;
+            line-height: 1.6;
         }
         
         .audience-card li::before {
             content: "✓";
             position: absolute;
             left: 0;
-            color: var(--color-primary);
-            font-weight: bold;
+            color: var(--color-accent);
+            font-weight: 800;
+            font-size: 18px;
         }
         
-        /* Comparison */
-        table {
+        .audience-card .btn-primary {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 40px;
-            background: white;
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        th, td {
-            padding: 20px 24px;
-            text-align: left;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        th {
-            background: var(--color-light);
-            font-weight: 600;
-        }
-        
-        .check { color: #16a34a; font-weight: 700; }
-        .cross { color: #dc2626; font-weight: 700; }
-        
-        /* Geo */
-        .geo-content {
+            display: block;
             text-align: center;
-            max-width: 640px;
-            margin: 0 auto;
-        }
-        
-        .location-tag {
-            display: inline-block;
-            padding: 12px 28px;
-            background: white;
-            border: 1px solid var(--color-border);
-            border-radius: 6px;
-            font-weight: 600;
-            margin-top: 32px;
         }
         
         /* CTA */
         .cta-section {
-            padding: 120px 0;
+            padding: 140px 0;
             background: var(--color-primary);
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
         }
         
         .cta-section h2 {
             color: white;
-            font-size: 40px;
-            margin-bottom: 16px;
+            font-size: 52px;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .cta-section .section-subtitle {
-            color: #d1d5db;
-            margin-bottom: 48px;
+        .cta-section p {
+            font-size: 21px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto 56px;
+            line-height: 1.6;
         }
         
         .cta-buttons {
@@ -365,51 +606,61 @@
             flex-wrap: wrap;
         }
         
-        .btn-cta-primary {
-            padding: 16px 32px;
+        .btn-cta {
+            padding: 18px 36px;
             background: var(--color-accent);
             color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-out);
+            box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
         }
         
-        .btn-cta-secondary {
-            padding: 16px 32px;
-            background: transparent;
-            color: white;
-            border: 2px solid #4b5563;
-            border-radius: 8px;
-            font-weight: 600;
+        .btn-cta:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
         }
         
         /* Footer */
         footer {
-            padding: 80px 0 40px;
+            padding: 100px 0 48px;
             background: var(--color-light);
             border-top: 1px solid var(--color-border);
         }
         
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 48px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 80px;
+            margin-bottom: 80px;
+            max-width: 600px;
         }
         
         .footer-column h4 {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
             color: var(--color-primary);
         }
         
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+        
         .footer-links a {
-            display: block;
-            margin-bottom: 12px;
             color: var(--color-muted);
             text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s;
         }
         
         .footer-links a:hover {
@@ -417,42 +668,107 @@
         }
         
         .footer-bottom {
-            padding-top: 40px;
+            padding-top: 48px;
             border-top: 1px solid var(--color-border);
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
+            align-items: center;
+            font-size: 15px;
             color: var(--color-muted);
         }
         
-        /* Mobile */
+        .footer-tagline {
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .audience-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .hero h1 { font-size: 40px; }
-            .hero { padding: 100px 0; }
-            section { padding: 80px 0; }
-            h2 { font-size: 32px; }
-            .hero-buttons, .cta-buttons { flex-direction: column; align-items: center; }
-            .btn-primary, .btn-secondary, .btn-cta-primary, .btn-cta-secondary { width: 100%; max-width: 320px; text-align: center; }
-            .nav-links { gap: 20px; }
-            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .container {
+                padding: 0 24px;
+            }
+            
+            .hero h1 { 
+                font-size: 48px;
+            }
+            
+            h2 {
+                font-size: 36px;
+            }
+            
+            .hero { 
+                padding: 100px 0 120px; 
+            }
+            
+            section { 
+                padding: 80px 0; 
+            }
+            
+            .hero-buttons, 
+            .cta-buttons { 
+                flex-direction: column; 
+                align-items: center; 
+            }
+            
+            .btn-primary, 
+            .btn-secondary, 
+            .btn-cta { 
+                width: 100%; 
+                max-width: 320px; 
+                text-align: center; 
+            }
+            
+            .problem-grid,
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
         }
         
         @media (max-width: 640px) {
-            .container { padding: 0 24px; }
-            .nav-links { display: none; }
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            h2 {
+                font-size: 32px;
+            }
+            
+            .cta-section h2 {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
         <div class="container nav-content">
-            <div class="logo">AutofriQ</div>
+            <a href="/" class="logo">AutofriQ</a>
             <div class="nav-links">
                 <a href="#how">How it works</a>
-                <a href="#dealers">For dealers</a>
-                <a href="#agents">For agents</a>
+                <a href="#who">Who it's for</a>
+                <a href="/contact">Contact</a>
                 <a href="#cta" class="btn-nav">Get started</a>
             </div>
         </div>
@@ -460,13 +776,14 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <h1>Verified vehicle transactions in Ghana</h1>
-            <p class="hero-subtitle">Independent on-site inspections before any listing goes live. Clear evidence for buyers. Real accountability for dealers.</p>
+        <div class="container hero-content">
+            <h1>Every Car on AutofriQ Is Physically Verified — Before You Ever See It</h1>
+            <p class="hero-subtitle">AutofriQ controls listings through mandatory on-site inspections, agent accountability, and enforced rules — preventing bypasses and off-platform deals.</p>
             <div class="hero-buttons">
-                <a href="#how" class="btn-primary">See how it works</a>
-                <a href="#dealers" class="btn-secondary">For dealers</a>
+                <a href="/listings" class="btn-primary">View Verified Cars</a>
+                <a href="/list-car" class="btn-secondary">List a Car for Inspection</a>
             </div>
+            <p class="micro-trust">No inspections. No listings. No shortcuts.</p>
         </div>
     </section>
 
@@ -474,125 +791,65 @@
     <section class="problem-section">
         <div class="container">
             <div class="section-header">
-                <h2>The reality of used car trading in Ghana</h2>
-                <p class="section-subtitle">Most deals lack independent verification and leave buyers exposed.</p>
+                <h2>Buying or selling cars in Ghana is broken</h2>
+                <p class="section-subtitle">Most platforms connect people but don't control the transaction. AutofriQ does.</p>
             </div>
             <div class="problem-grid">
                 <div class="problem-card">
                     <h3>Hidden defects</h3>
-                    <p>Mechanical or accident issues only surface after payment is made.</p>
+                    <p>Issues only appear after payment.</p>
                 </div>
                 <div class="problem-card">
-                    <h3>No evidence</h3>
-                    <p>Listings rely on seller-provided photos with no on-site proof.</p>
+                    <h3>No real evidence</h3>
+                    <p>Seller photos with no on-site proof.</p>
                 </div>
                 <div class="problem-card">
                     <h3>Off-platform deals</h3>
-                    <p>Buyers and sellers move to WhatsApp, losing any protection.</p>
+                    <p>Quick moves to WhatsApp, no protection.</p>
                 </div>
                 <div class="problem-card">
                     <h3>Limited accountability</h3>
-                    <p>Disputes are common and hard to resolve fairly.</p>
+                    <p>Disputes hard to resolve.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section class="how-section" id="how" style="background: var(--color-light);">
+    <section class="how-section" id="how">
         <div class="container">
             <div class="section-header">
-                <h2>How AutofriQ works</h2>
-                <p class="section-subtitle">Simple, enforced process for every vehicle.</p>
+                <h2>AutofriQ is a transaction control system, not just a marketplace</h2>
+                <p class="section-subtitle">Enforced process for every deal:</p>
             </div>
             <div class="steps-container">
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Dealer submits vehicle</h3>
-                    <p>Basic details entered. Listing stays pending.</p>
+                    <p>Basic details. Listing pending.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Agent performs inspection</h3>
-                    <p>On-site check with GPS-stamped photos and standardised checklist.</p>
+                    <h3>Agent inspects on-site</h3>
+                    <p>GPS-stamped photos, checklist, full condition check.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3>Report published</h3>
-                    <p>Full findings made public on the listing for all buyers to see.</p>
+                    <p>Findings visible to all buyers upfront.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
-                    <h3>Buyer connects</h3>
-                    <p>Contact only possible after verification is complete.</p>
+                    <h3>Controlled contact & viewing</h3>
+                    <p>Scheduled through platform only.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Supervised handover</h3>
+                    <p>Agent oversight, permanent record.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Trust -->
-    <section class="trust-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Trust mechanisms</h2>
-                <p class="section-subtitle">Systems in place to maintain standards and prevent fraud.</p>
-            </div>
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <h3>On-site evidence only</h3>
-                    <p>All photos captured during inspection with location verification.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>Agent quality control</h3>
-                    <p>Performance monitoring and random audits.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>Dealer track record</h3>
-                    <p>Repeated issues reduce visibility or lead to removal.</p>
-                </div>
-                <div class="trust-item">
-                    <h3>Permanent records</h3>
-                    <p>Reports and photos stored and timestamped indefinitely.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Audience -->
-    <section class="audience-section" style="background: var(--color-light);">
-        <div class="container">
-            <div class="section-header">
-                <h2>Who it’s for</h2>
-            </div>
-            <div class="audience-grid">
-                <div class="audience-card">
-                    <div class="audience-label">Buyers</div>
-                    <h3>Buy with confidence</h3>
-                    <ul>
-                        <li>See independent reports before contacting anyone</li>
-                        <li>Know condition and history upfront</li>
-                        <li>Avoid common surprises</li>
-                    </ul>
-                </div>
-                <div class="audience-card" id="dealers">
-                    <div class="audience-label">Dealers</div>
-                    <h3>Build trust faster</h3>
-                    <ul>
-                        <li>Verified listings stand out</li>
-                        <li>Attract serious buyers</li>
-                        <li>Reduce disputes through transparency</li>
-                    </ul>
-                </div>
-                <div class="audience-card" id="agents">
-                    <div class="audience-label">Inspection Agents</div>
-                    <h3>Earn steadily</h3>
-                    <ul>
-                        <li>Assignments in your area</li>
-                        <li>Clear guidelines and tools</li>
-                        <li>Prompt payment per report</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="closing-line">If it didn't happen through AutofriQ, it didn't happen.</div>
         </div>
     </section>
 
@@ -600,65 +857,96 @@
     <section class="comparison-section">
         <div class="container">
             <div class="section-header">
-                <h2>How AutofriQ compares</h2>
+                <h2>Why AutofriQ is different</h2>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>AutofriQ</th>
-                        <th>Classified sites</th>
-                        <th>WhatsApp deals</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mandatory pre-listing inspection</td>
-                        <td class="check">✓</td>
-                        <td class="cross">✗</td>
-                        <td class="cross">✗</td>
-                    </tr>
-                    <tr>
-                        <td>On-site verified evidence</td>
-                        <td class="check">✓</td>
-                        <td class="cross">✗</td>
-                        <td class="cross">✗</td>
-                    </tr>
-                    <tr>
-                        <td>Dealer accountability system</td>
-                        <td class="check">✓</td>
-                        <td class="cross">✗</td>
-                        <td class="cross">✗</td>
-                    </tr>
-                    <tr>
-                        <td>Controlled contact</td>
-                        <td class="check">✓</td>
-                        <td class="cross">✗</td>
-                        <td class="cross">✗</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Others</th>
+                            <th>AutofriQ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Inspections</td>
+                            <td>None required</td>
+                            <td class="yes">✓ Mandatory on-site</td>
+                        </tr>
+                        <tr>
+                            <td>Evidence</td>
+                            <td>Seller-provided only</td>
+                            <td class="yes">✓ GPS-verified photos & reports</td>
+                        </tr>
+                        <tr>
+                            <td>Deal control</td>
+                            <td>Open side deals</td>
+                            <td class="yes">✓ Enforced platform scheduling</td>
+                        </tr>
+                        <tr>
+                            <td>Accountability</td>
+                            <td>Limited</td>
+                            <td class="yes">✓ Agent monitoring + records</td>
+                        </tr>
+                        <tr>
+                            <td>Platform involvement</td>
+                            <td>Ends at connection</td>
+                            <td class="yes">✓ Through handover</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 
-    <!-- Geographic -->
-    <section class="geo-section" style="background: var(--color-light);">
-        <div class="container geo-content">
-            <h2>Focused on Ghana</h2>
-            <p class="section-subtitle">Starting in major cities with local agents and real understanding of the market.</p>
-            <div class="location-tag">Live in Accra, Kumasi, Takoradi – expanding steadily</div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section" id="cta">
+    <!-- Who It's For -->
+    <section class="audience-section" id="who">
         <div class="container">
-            <h2>Get started today</h2>
-            <p class="section-subtitle">Choose your role and join the platform.</p>
+            <div class="section-header">
+                <h2>Who it's for</h2>
+            </div>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h3>Buyers</h3>
+                    <ul>
+                        <li>See only physically verified cars</li>
+                        <li>Full reports before any contact</li>
+                        <li>No surprises or fake listings</li>
+                    </ul>
+                    <a href="/listings" class="btn-primary">Browse Verified Cars</a>
+                </div>
+                <div class="audience-card">
+                    <h3>Dealers</h3>
+                    <ul>
+                        <li>Verified listings build instant trust</li>
+                        <li>Sell faster to serious buyers</li>
+                        <li>Reduce disputes with evidence</li>
+                    </ul>
+                    <a href="/list-car" class="btn-primary">List a Car for Inspection</a>
+                </div>
+                <div class="audience-card">
+                    <h3>Inspection Agents</h3>
+                    <ul>
+                        <li>Steady local assignments</li>
+                        <li>Clear standards and tools</li>
+                        <li>Prompt, performance-based pay</li>
+                    </ul>
+                    <a href="/agents" class="btn-primary">Apply as Agent</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section" id="cta">
+        <div class="container cta-content">
+            <h2>AutofriQ controls how cars are traded in Ghana</h2>
+            <p>No assumptions. No shortcuts. Just enforced verification from listing to handover.</p>
             <div class="cta-buttons">
-                <a href="/signup/buyer" class="btn-cta-primary">Join as buyer</a>
-                <a href="/signup/dealer" class="btn-cta-secondary">Register as dealer</a>
-                <a href="/agents" class="btn-cta-secondary">Become an agent</a>
+                <a href="/listings" class="btn-cta">View Verified Cars</a>
+                <a href="/list-car" class="btn-cta">List a Car</a>
+                <a href="/agents" class="btn-cta">Become an Agent</a>
             </div>
         </div>
     </section>
@@ -671,44 +959,43 @@
                     <h4>Platform</h4>
                     <ul class="footer-links">
                         <li><a href="#how">How it works</a></li>
-                        <li><a href="#">Trust & safety</a></li>
-                        <li><a href="mailto:info@autofriq.com">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Dealers</h4>
-                    <ul class="footer-links">
-                        <li><a href="#dealers">Register</a></li>
-                        <li><a href="#">Guidelines</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Agents</h4>
-                    <ul class="footer-links">
-                        <li><a href="#agents">Apply</a></li>
-                        <li><a href="#">Requirements</a></li>
+                        <li><a href="/contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Company</h4>
                     <ul class="footer-links">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Privacy</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/terms">Terms</a></li>
+                        <li><a href="/privacy">Privacy</a></li>
+                        <li><a href="mailto:info@autofriq.com">info@autofriq.com</a></li>
                     </ul>
                 </div>
             </div>
-            <div><a href="mailto:info@autofriq.com" class="email-button">Email Us</a></div>
             <div class="footer-bottom">
-               
                 <div>© 2026 AutofriQ. All rights reserved.</div>
-                <div>Built for emerging markets</div>
+                <div class="footer-tagline">Built for Ghana and emerging markets</div>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+
 </body>
 </html>
-
-
-
