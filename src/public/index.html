@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutofriQ – Controlled Vehicle Transactions in Ghana</title>
+    <title>AutofriQ - No Inspection, No Listing.</title>
     <meta name="description" content="Every car is physically verified on-site before listing. No shortcuts, no bypasses, no off-platform deals.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,6 +46,8 @@
             margin: 0 auto;
             padding: 0 40px;
         }
+
+
         
         /* Navigation */
         nav {
@@ -222,6 +224,18 @@
             transform: translateY(0);
         }
         
+        .site-image {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.image-section {
+    margin: 80px auto;
+    max-width: 1100px;
+}
+
         .btn-secondary {
             padding: 18px 36px;
             background: white;
@@ -719,6 +733,19 @@
                 flex-direction: column; 
                 align-items: center; 
             }
+		.email-button {
+  		display: inline-block;
+  		padding: 10px 20px;
+  		background: #28a745;   /* Green button */
+  		color: #fff;
+  		border-radius: 5px;
+  		text-decoration: none;
+  		font-family: Arial, sans-serif;
+		}
+
+.email-button:hover {
+  background: #218838;   /* Darker green on hover */
+}
             
             .btn-primary, 
             .btn-secondary, 
@@ -777,8 +804,8 @@
     <!-- Hero -->
     <section class="hero">
         <div class="container hero-content">
-            <h1>Every Car on AutofriQ Is Physically Verified — Before You Ever See It</h1>
-            <p class="hero-subtitle">AutofriQ controls listings through mandatory on-site inspections, agent accountability, and enforced rules — preventing bypasses and off-platform deals.</p>
+            <h1>Verified Cars. Zero Surprises.</h1>
+            <p class="hero-subtitle">AutofriQ controls listings through mandatory on-site inspections, agent accountability, and enforced rules, preventing bypasses and off-platform deals.</p>
             <div class="hero-buttons">
                 <a href="/listings" class="btn-primary">View Verified Cars</a>
                 <a href="/list-car" class="btn-secondary">List a Car for Inspection</a>
@@ -786,6 +813,14 @@
             <p class="micro-trust">No inspections. No listings. No shortcuts.</p>
         </div>
     </section>
+    <section class="image-section container">
+    <img 
+        src="transactionpic.jpg" 
+        alt="Car dealership transaction with verified agent"
+        class="site-image"
+    >
+</section>
+
 
     <!-- Problem -->
     <section class="problem-section">
@@ -819,6 +854,7 @@
     <section class="how-section" id="how">
         <div class="container">
             <div class="section-header">
+
                 <h2>AutofriQ is a transaction control system, not just a marketplace</h2>
                 <p class="section-subtitle">Enforced process for every deal:</p>
             </div>
@@ -842,15 +878,25 @@
                     <div class="step-number">4</div>
                     <h3>Controlled contact & viewing</h3>
                     <p>Scheduled through platform only.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <h3>Supervised handover</h3>
-                    <p>Agent oversight, permanent record.</p>
-                </div>
+		</div>	
+               <div class="step">
+    		<div class="step-number">5</div>
+    		<h3>Supervised handover</h3>
+    		<p>Agent oversight, permanent record.</p>
+		</div>
+
             </div>
             <div class="closing-line">If it didn't happen through AutofriQ, it didn't happen.</div>
         </div>
+
+   
+
+    		<img 
+        		src="manhand.jpg" 
+        		alt="Verified car handover supervised by agent"
+        		class="site-image"
+        		style="margin-top: 24px;"
+    						>
     </section>
 
     <!-- Comparison -->
@@ -941,6 +987,13 @@
     <!-- Final CTA -->
     <section class="cta-section" id="cta">
         <div class="container cta-content">
+	<img 
+    src="womanhandkey.jpg" 
+    alt="Happy buyer receiving verified car keys"
+    class="site-image"
+    style="max-width: 900px; margin: 0 auto 56px;"
+>
+
             <h2>AutofriQ controls how cars are traded in Ghana</h2>
             <p>No assumptions. No shortcuts. Just enforced verification from listing to handover.</p>
             <div class="cta-buttons">
@@ -968,9 +1021,9 @@
                         <li><a href="/about">About</a></li>
                         <li><a href="/terms">Terms</a></li>
                         <li><a href="/privacy">Privacy</a></li>
-                        <li><a href="mailto:info@autofriq.com">info@autofriq.com</a></li>
                     </ul>
                 </div>
+    <a href="mailto:info@example.com" class="email-button">Email Us</a>
             </div>
             <div class="footer-bottom">
                 <div>© 2026 AutofriQ. All rights reserved.</div>
@@ -999,3 +1052,4 @@
 
 </body>
 </html>
+
